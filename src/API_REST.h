@@ -1,8 +1,13 @@
 #include <iostream>
+#include "DataBaseConnection.h"
 
 using namespace std;
 
+/*
+ * function that holds the logic of "got help" command
+ */
 string GotHELP(){
+
     string message;
     message = "Los comandos válidos son: \n"
               "got init <name>:\n"
@@ -29,4 +34,21 @@ string GotHELP(){
               "Recupera los cambios para un archivo en el server y lo sincroniza con el archivo en el cliente"
             ;
     return message;
+}
+
+/*
+ * function that holds the logic of "got init <name>" command
+ */
+int GotInit(string name){
+    string command = "DROP TABLE IF EXISTS " + name;
+    string command2 = "CREATE TABLE " + name + "(def CHAR(100))";
+    DataBaseConn(command);
+    DataBaseConn(command2);
+    return 0;
+}
+
+int GotAdd(string path, string name){
+    string command = "LOAD DATA LOCAL INFILE '" + path + "' INTO TABLE " + name;
+    DataBaseConn(command);
+    return 0;
 }

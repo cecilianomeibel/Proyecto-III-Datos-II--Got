@@ -16,8 +16,7 @@
 					"targetIndexes" : 
 					[
 						0,
-						1,
-						2
+						1
 					]
 				}
 			],
@@ -33,8 +32,7 @@
 					"targetIndexes" : 
 					[
 						0,
-						1,
-						2
+						1
 					]
 				}
 			],
@@ -50,15 +48,8 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "Server::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-Server-Debug-9d21de4a0d02f13569b4.json",
+					"jsonFile" : "target-Server-Debug-9d6e3d84932a4119cdf2.json",
 					"name" : "Server",
-					"projectIndex" : 0
-				},
-				{
-					"directoryIndex" : 0,
-					"id" : "example::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-example-Debug-98978567027ebd385999.json",
-					"name" : "example",
 					"projectIndex" : 0
 				}
 			]

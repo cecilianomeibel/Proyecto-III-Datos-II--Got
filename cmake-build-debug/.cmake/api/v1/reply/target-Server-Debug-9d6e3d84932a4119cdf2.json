@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "example"
+			"path" : "Server"
 		}
 	],
 	"backtrace" : 1,
@@ -11,7 +11,6 @@
 		"commands" : 
 		[
 			"add_executable",
-			"link_directories",
 			"target_link_libraries",
 			"include_directories",
 			"target_compile_features"
@@ -28,31 +27,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 14,
+				"line" : 6,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 12,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 16,
+				"line" : 11,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 11,
-				"parent" : 0
-			},
-			{
-				"command" : 4,
-				"file" : 0,
-				"line" : 17,
+				"line" : 15,
 				"parent" : 0
 			}
 		]
@@ -72,7 +65,7 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 3,
 					"path" : "/usr/include/mysql-cppconn-8/jdbc"
 				}
 			],
@@ -81,7 +74,7 @@
 			{
 				"backtraces" : 
 				[
-					5
+					4
 				],
 				"standard" : "14"
 			},
@@ -91,7 +84,7 @@
 			]
 		}
 	],
-	"id" : "example::@6890427a1f51a3e7e1df",
+	"id" : "Server::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -106,23 +99,14 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/usr/include/mysql-cppconn-8/jdbc",
-				"role" : "libraryPath"
-			},
-			{
-				"fragment" : "-Wl,-rpath,/usr/include/mysql-cppconn-8/jdbc",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 3,
 				"fragment" : "-lmysqlcppconn",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "example",
-	"nameOnDisk" : "example",
+	"name" : "Server",
+	"nameOnDisk" : "Server",
 	"paths" : 
 	{
 		"build" : ".",
@@ -143,7 +127,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/Example.cpp",
+			"path" : "src/Server.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

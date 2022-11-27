@@ -66,6 +66,7 @@ build CMakeFiles/Server.dir/src/Server.cpp.o: CXX_COMPILER__Server_Debug /home/a
 
 build Server: CXX_EXECUTABLE_LINKER__Server_Debug CMakeFiles/Server.dir/src/Server.cpp.o
   FLAGS = -g
+  LINK_LIBRARIES = -lmysqlcppconn
   OBJECT_DIR = CMakeFiles/Server.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -104,40 +105,6 @@ build Client: CXX_EXECUTABLE_LINKER__Client_Debug CMakeFiles/Client.dir/src/Clie
   TARGET_FILE = Client
   TARGET_PDB = Client.dbg
 
-# =============================================================================
-# Object build statements for EXECUTABLE target example
-
-
-#############################################
-# Order-only phony target for example
-
-build cmake_object_order_depends_target_example: phony || CMakeFiles/example.dir
-
-build CMakeFiles/example.dir/src/Example.cpp.o: CXX_COMPILER__example_Debug /home/albert/CLionProjects/Proyecto$ III/src/Example.cpp || cmake_object_order_depends_target_example
-  DEP_FILE = CMakeFiles/example.dir/src/Example.cpp.o.d
-  FLAGS = -g -std=gnu++14
-  INCLUDES = -I/usr/include/mysql-cppconn-8/jdbc
-  OBJECT_DIR = CMakeFiles/example.dir
-  OBJECT_FILE_DIR = CMakeFiles/example.dir/src
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target example
-
-
-#############################################
-# Link the executable example
-
-build example: CXX_EXECUTABLE_LINKER__example_Debug CMakeFiles/example.dir/src/Example.cpp.o
-  FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/usr/include/mysql-cppconn-8/jdbc  -lmysqlcppconn
-  LINK_PATH = -L/usr/include/mysql-cppconn-8/jdbc
-  OBJECT_DIR = CMakeFiles/example.dir
-  POST_BUILD = :
-  PRE_LINK = :
-  TARGET_FILE = example
-  TARGET_PDB = example.dbg
-
 
 #############################################
 # Utility command for edit_cache
@@ -173,7 +140,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/albert/CLionProjects/Proyecto III/cmake-build-debug
 
-build all: phony Server Client example
+build all: phony Server Client
 
 # =============================================================================
 # Built-in targets

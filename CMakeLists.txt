@@ -11,8 +11,5 @@ set(FULL_PATH_TO_MYSQL_CONNECTOR_CPP_DIR /usr/include/mysql-cppconn-8/jdbc)
 include_directories(${FULL_PATH_TO_MYSQL_CONNECTOR_CPP_DIR})
 link_directories(${FULL_PATH_TO_MYSQL_CONNECTOR_CPP_DIR})
 
-add_executable(example src/Example.cpp)
-
-target_link_libraries(example mysqlcppconn)
-target_compile_features(example PRIVATE cxx_range_for)
-
+target_link_libraries(Server mysqlcppconn)
+target_compile_features(Server PRIVATE cxx_range_for)

@@ -9,8 +9,7 @@
 
 using namespace std;
 
-int main()
-{
+int DataBaseConn(string command){
     cout << endl;
     cout << "Running 'SELECT 'Hello World!' » AS _message'..." << endl;
 
@@ -20,10 +19,16 @@ int main()
         sql::Statement *stmt;
         sql::ResultSet *res;
 
+        sql::ConnectOptionsMap connection_properties;
+        connection_properties["hostName"] = "tcp://127.0.0.1:3306";
+        connection_properties["userName"] = "root";
+        connection_properties["password"] = "proyecto3";
+        connection_properties["OPT_LOCAL_INFILE"] = 1;
+
         /* Create a connection */
         driver = get_driver_instance();
-        con = driver->connect("tcp://127.0.0.1:3306", "root", "proyecto3");
-        /* Connect to the MySQL test database */
+        con = driver->connect(connection_properties);
+        /* Connect to the MySQL "prueba" database */
         con->setSchema("prueba");
 
         stmt = con->createStatement();
@@ -36,6 +41,9 @@ int main()
             /* Access column data by numeric offset, 1 is the first column */
             cout << res->getString(1) << endl;
         }
+
+        stmt->execute(command);
+
         delete res;
         delete stmt;
         delete con;
