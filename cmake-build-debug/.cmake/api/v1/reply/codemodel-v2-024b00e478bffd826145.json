@@ -58,8 +58,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/albert/CLionProjects/Proyecto III/cmake-build-debug",
-		"source" : "/home/albert/CLionProjects/Proyecto III"
+		"build" : "/home/albert/CLionProjects/Proyecto_III/cmake-build-debug",
+		"source" : "/home/albert/CLionProjects/Proyecto_III"
 	},
 	"version" : 
 	{

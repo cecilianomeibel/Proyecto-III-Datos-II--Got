@@ -47,6 +47,7 @@ int DataBaseConn(string command){
         delete res;
         delete stmt;
         delete con;
+        return 0;
 
     } catch (sql::SQLException &e) {
         cout << "# ERR: SQLException in " << __FILE__;
@@ -54,9 +55,6 @@ int DataBaseConn(string command){
         cout << "# ERR: " << e.what();
         cout << " (MySQL error code: " << e.getErrorCode();
         cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+        return -1;
     }
-
-    cout << endl;
-
-    return EXIT_SUCCESS;
 }

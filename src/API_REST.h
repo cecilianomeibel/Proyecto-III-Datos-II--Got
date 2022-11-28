@@ -3,6 +3,17 @@
 
 using namespace std;
 
+vector<string> divideInput(string input){
+    std::vector<std::string> result;
+    std::istringstream isstream(input);
+    std::string word;
+
+    while(std::getline(isstream, word, ' ')){
+        result.push_back(word);
+    }
+    return result;
+}
+
 /*
  * function that holds the logic of "got help" command
  */
@@ -39,16 +50,39 @@ string GotHELP(){
 /*
  * function that holds the logic of "got init <name>" command
  */
-int GotInit(string name){
-    string command = "DROP TABLE IF EXISTS " + name;
-    string command2 = "CREATE TABLE " + name + "(def CHAR(100))";
-    DataBaseConn(command);
-    DataBaseConn(command2);
-    return 0;
+string GotInit(string input){
+    string RepoName;
+    // divide de client's request into separated words
+    if (!input.empty()) {
+        vector<string> result = divideInput(input);
+        RepoName = result[2]; //obtain the repository name
+    }
+    string command = "DROP TABLE IF EXISTS " + RepoName;
+    string command2 = "CREATE TABLE " + RepoName + "(def CHAR(100))";
+    if ((DataBaseConn(command) & DataBaseConn(command2)) == 0){
+        string message = "Se ha iniciado correctamente el repositorio: " + RepoName;
+        return message;
+    }else{
+        string message = "Hubo un error al crear el repositorio, intente de nuevo";
+        return message;
+    }
 }
 
-int GotAdd(string path, string name){
+string GotAdd(string input){
+    string path, name;
+
+    if (!input.empty()) {
+        std::vector<std::string> result = divideInput(input);
+        path = result[2];
+        name = result[3];
+    }
     string command = "LOAD DATA LOCAL INFILE '" + path + "' INTO TABLE " + name;
-    DataBaseConn(command);
-    return 0;
+    if (DataBaseConn(command) == 0){
+        string message = "Se ha añadido correctamente el archivo: " + path + " al repositorio: " + name;
+        return message;
+    }else{
+        string message = "Hubo un error al añadir el archivo, intente de nuevo o pida ayuda con el comando 'got help'";
+        return message;
+    }
+
 }
