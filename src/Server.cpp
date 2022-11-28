@@ -7,7 +7,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    string name;
+    vector<string> files;
+    string RepoName;
     io_service io_service;
 
     tcp::acceptor acceptor_server(io_service,tcp::endpoint(tcp::v4(), 9999));
@@ -51,16 +52,25 @@ int main(int argc, char* argv[])
             cout << u_name << ": " << response << endl;
             sendData(server_socket, GotInit(response));
         /*
-         * Function "got add <filepath> <repository name>"
+         * Function "got add [-A] <filepath> <repository name>"
          */
         }else if(response.find("add") == 4){
             cout << u_name << ": " << response << endl;
-            sendData(server_socket, GotAdd(response));
-        }
+            files = GotAdd(response);
+            for (int i=0; i<files.size(); i++){
+                cout<<"Elemento "<<to_string(i)<< ":"<< files[i] <<"\n";
+            }
+            RepoName = files[0];
+            files.erase(files.begin());
+            sendData(server_socket, "Se han subido los archivos correctamente, su estado es 'pendiente de commit'");
         /*
-         * in case that the client enter an invalid command, return a message
+         * Function "got commit <message>"
          */
-        else{
+        }else if(response.find("commit") == 4){
+            cout << u_name << ": " << response << endl;
+            sendData(server_socket, GotCommit(RepoName, files));
+
+        }else{
             cout << u_name << ": " << response << endl;
             sendData(server_socket, "Por favor, ingrese un comando válido, para más información digite el comando 'got help'");
         }

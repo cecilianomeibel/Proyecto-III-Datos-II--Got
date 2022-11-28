@@ -1,0 +1,17 @@
+int main(int argc, char* argv[])
+{
+    vector<string> files;
+    string RepoName;
+    io_service io_service;
+
+    tcp::acceptor acceptor_server(io_service,tcp::endpoint(tcp::v4(), 9999));
+    tcp::socket server_socket(io_service);  // Creating socket object
+    acceptor_server.accept(server_socket); // waiting for connection
+
+    string u_name = getData(server_socket); // Reading username
+    u_name.pop_back(); // Remove last character "\n"
+
+    string response, reply;
+    reply = "Hello " + u_name + "!";
+    cout << "Server: " << reply << endl;
+    sendData(server_socket, reply);

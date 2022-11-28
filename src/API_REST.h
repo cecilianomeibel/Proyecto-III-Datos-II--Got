@@ -1,5 +1,6 @@
 #include <iostream>
 #include "DataBaseConnection.h"
+#include <vector>
 
 using namespace std;
 
@@ -57,9 +58,11 @@ string GotInit(string input){
         vector<string> result = divideInput(input);
         RepoName = result[2]; //obtain the repository name
     }
-    string command = "DROP TABLE IF EXISTS " + RepoName;
-    string command2 = "CREATE TABLE " + RepoName + "(def CHAR(100))";
-    if ((DataBaseConn(command) & DataBaseConn(command2)) == 0){
+    string command1 = "DROP TABLE IF EXISTS " + RepoName;
+    string command2 = "DROP TABLE IF EXISTS " + RepoName + "Changes";
+    string command3 = "CREATE TABLE " + RepoName + "(deflt CHAR(100))";
+    string command4 = "CREATE TABLE " + RepoName + "Changes(deflt CHAR(100))";
+    if ((DataBaseConn(command1) & DataBaseConn(command2) & DataBaseConn(command3) & DataBaseConn(command4)) == 0){
         string message = "Se ha iniciado correctamente el repositorio: " + RepoName;
         return message;
     }else{
@@ -68,21 +71,60 @@ string GotInit(string input){
     }
 }
 
-string GotAdd(string input){
-    string path, name;
-
-    if (!input.empty()) {
+/*
+ * function that holds the logic of "got add [-A] <filepath> <repository name>" command
+ */
+vector<string> GotAdd(string input){
+    vector<string> information;
+    if(input.find("-A") == 8){
         std::vector<std::string> result = divideInput(input);
-        path = result[2];
-        name = result[3];
-    }
-    string command = "LOAD DATA LOCAL INFILE '" + path + "' INTO TABLE " + name;
-    if (DataBaseConn(command) == 0){
-        string message = "Se ha añadido correctamente el archivo: " + path + " al repositorio: " + name;
-        return message;
+
+        string RepoName = result[result.size()-1];
+        information.push_back(RepoName);
+
+        for(int i=0; i<3; i++){
+            result.erase(result.begin());
+        }
+        result.erase(result.end());
+        for (int i=0; i<result.size(); i++){
+            information.push_back(result[i]);
+        }
     }else{
-        string message = "Hubo un error al añadir el archivo, intente de nuevo o pida ayuda con el comando 'got help'";
-        return message;
+        std::vector<std::string> result = divideInput(input);
+        information.push_back(result[2]);
+        information.push_back(result[3]);
     }
+
+    return information;
+}
+
+string GotCommit(string RepoName, vector<string> files){
+    vector<string> columns;
+    string status;
+
+    for(int i=0; i<files.size(); i++){
+        string colunmName = files[i];
+        for(int j=0; j<4;j++){ //this for loop only removes the ".txt" extension
+            colunmName.pop_back();
+        }
+        columns.push_back(colunmName);
+    }
+
+    for(int i=0; i<files.size(); i++){
+
+        string path;
+        path = "/home/albert/CLionProjects/Proyecto_III/Archives/" + files[i];
+
+        string command1 = "ALTER TABLE " + RepoName + " ADD " + columns[i]  + " CHAR(100)"; //create a new column with the name of the file
+        string command2 = "LOAD DATA LOCAL INFILE '" + path + "' INTO TABLE " + RepoName + "(" + columns[i] + ")"; //store the content of the file in the column
+
+        if ((DataBaseConn(command1) & DataBaseConn(command2)) == 0){
+            status = "Se han añadido correctamente los archivos al repositorio: " + RepoName;
+        }else{
+            status = "Hubo un error al añadir el archivo, intente de nuevo o pida ayuda con el comando 'got help'";
+        }
+    }
+
+    return status;
 
 }
